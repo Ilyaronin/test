@@ -1,5 +1,5 @@
 import discord
-
+from bot_logic import gen_pass
 # Переменная intents - хранит привилегии бота
 intents = discord.Intents.default()
 # Включаем привелегию на чтение сообщений
@@ -20,7 +20,6 @@ async def on_message(message):
     elif message.content.startswith('$bye'):
         await message.channel.send("\\U0001f642")
     elif message.content.startswitch('$password'):
-        from bot_logic import gen_pass
         await message.channel.send(gen_pass(10))
     else:
         await message.channel.send(message.content)
