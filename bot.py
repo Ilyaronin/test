@@ -43,6 +43,10 @@ async def разложение(ctx, *, material: str):
         await ctx.send(f'Предмет: "{material}" разложение: {materials[material]}')
 #базовые команды
 @bot.command()
+async def support(ctx):
+    await ctx.send('Есть команды $идеи, $сортировать, $разложение, $hello, $heh, $add, $joined, $repeat, $duck, $dog')
+
+@bot.command()
 async def hello(ctx):
     await ctx.send(f'Привет! Я бот {bot.user}!')
 
@@ -54,7 +58,7 @@ async def heh(ctx, count_heh = 5):
 async def add(ctx, left: int, right: int):
     """Adds two numbers together."""
     await ctx.send(left + right)
-        
+
 @bot.command()
 async def joined(ctx, member: discord.Member):
     """Says when a member joined."""
@@ -94,4 +98,4 @@ async def dog(ctx):
 
 
 
-bot.run("token")
+bot.run("TOKEN")
