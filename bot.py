@@ -7,12 +7,41 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='$', intents=intents)
+#решение проблем с экологией
+idea = ['Декоративные горшки для растений', 'Органайзеры для канцелярии',
+        'Подставки под горячее', 'Кормушки для птиц']
 
+sorting = {
+    'бутылка': 'Переработка',
+    'журнал': 'Переработка',
+    'пластиковый пакет': 'Переработка',
+    'еды': 'Компостирование (если это органические отходы), иначе в обычную урну',
+    'лампочка': 'Переработка'}
 
+materials = {'древесина':'10 лет', 'одежда':'3 года', 'резина':'100 лет',
+             'пластиковая бутылка':'100-200 лет', 'губка':'200 лет',
+             'стекло':'более 1000 лет'}
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
 
+@bot.command()
+async def идеи(ctx):
+    ideas = random.choice(idea)
+    await ctx.send(ideas)
+
+@bot.command()
+async def сортировать(ctx, *, item: str):
+    item = item.lower()
+    if item in sorting:
+        await ctx.send(f'Для предмета "{item}" рекомендуется: {sorting[item]}')
+
+@bot.command()
+async def разложение(ctx, *, material: str):
+    material = material.lower()
+    if material in materials:
+        await ctx.send(f'Предмет: "{material}" разложение: {materials[material]}')
+#базовые команды
 @bot.command()
 async def hello(ctx):
     await ctx.send(f'Привет! Я бот {bot.user}!')
@@ -28,12 +57,20 @@ async def add(ctx, left: int, right: int):
 
 @bot.command()
 async def mem(ctx):
-    images = os.listdir('images')    
-    img_name = random.choice(images)
-    with open(f'images/{img_name}', 'rb') as f:
-        picture = discord.File(f)
- 
-    await ctx.send(file=picture)  
+    image = random.randint(1,3)
+    if image == 1:
+        with open(f'C:/Users/Iljya/Documents/chat-bot/images/mem1.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await ctx.send(file=picture)
+    elif image == 2:
+        with open(f'C:/Users/Iljya/Documents/chat-bot/images/mem2.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await ctx.send(file=picture)
+    elif image == 3:
+        with open(f'C:/Users/Iljya/Documents/chat-bot/images/mem3.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await ctx.send(file=picture)
+
 
 @bot.command()
 async def joined(ctx, member: discord.Member):
@@ -45,7 +82,7 @@ async def repeat(ctx, times: int, content='repeating...'):
     """Repeats a message multiple times."""
     for i in range(times):
         await ctx.send(content)
-
+#картинки
 def get_duck_image_url():    
     url = 'https://random-d.uk/api/random'
     res = requests.get(url)
@@ -70,5 +107,8 @@ def get_dog_image_url():
 async def dog(ctx):
     image_url = get_dog_image_url()
     await ctx.send(image_url)
+
+
+
 
 bot.run("token")
