@@ -54,24 +54,7 @@ async def heh(ctx, count_heh = 5):
 async def add(ctx, left: int, right: int):
     """Adds two numbers together."""
     await ctx.send(left + right)
-
-@bot.command()
-async def mem(ctx):
-    image = random.randint(1,3)
-    if image == 1:
-        with open(f'C:/Users/Iljya/Documents/chat-bot/images/mem1.jpg', 'rb') as f:
-            picture = discord.File(f)
-        await ctx.send(file=picture)
-    elif image == 2:
-        with open(f'C:/Users/Iljya/Documents/chat-bot/images/mem2.jpg', 'rb') as f:
-            picture = discord.File(f)
-        await ctx.send(file=picture)
-    elif image == 3:
-        with open(f'C:/Users/Iljya/Documents/chat-bot/images/mem3.jpg', 'rb') as f:
-            picture = discord.File(f)
-        await ctx.send(file=picture)
-
-
+        
 @bot.command()
 async def joined(ctx, member: discord.Member):
     """Says when a member joined."""
